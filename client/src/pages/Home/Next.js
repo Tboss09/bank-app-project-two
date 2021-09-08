@@ -54,7 +54,7 @@ const Next = () => {
      bg="blackAlpha.300"
      rounded="4px"
      w="40"
-     h="12"
+     h="16"
      fontSize="sm"
      fontWeight="bold"
     >
@@ -68,7 +68,7 @@ const Next = () => {
      bg="white"
      color="brand.500"
      w="40"
-     h="12"
+     h="16"
      fontSize="sm"
      fontWeight="bold"
      rounded="4px"

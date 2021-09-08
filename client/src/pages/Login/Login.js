@@ -112,7 +112,7 @@ export default function SimpleCard() {
            errors.email ? (
             <FormErrorIcon color="red.700" />
            ) : (
-            <GoMail color="brand.200" />
+            <GoMail width="1222px"  color="brand.200" />
            )
           }
          />
@@ -197,7 +197,8 @@ export default function SimpleCard() {
         <Button
          isLoading={isLoading}
          type="submit"
-         loadingText="Submitting"
+         bg="brand.500"
+         loadingText="Signing in"
          textTransform="capitalize"
          fontSize="sm"
          w="92%"

@@ -4,7 +4,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import FulLogo from '../../assets/img/logo/FulLogo'
 
-const ResetPasswordSuccess = () => {
+const PasswordLinkExpired = () => {
  const history = useHistory()
  return (
   <Box>
@@ -21,15 +21,17 @@ const ResetPasswordSuccess = () => {
    <VStack py="8" spacing={4}>
     <VStack spacing={0}>
      <Heading fontSize={'3xl'} color="brand.900">
-      Successfull
+      Error
      </Heading>
      <Text
       fontSize={'md'}
+    
+      w ='100%'
       fontWeight={'semibold'}
       color="gray.500"
       textAlign="center"
      >
-      Password successfully updated
+      This Link is expired or invalid, <br/>  Login to continue
      </Text>
     </VStack>
 
@@ -46,5 +48,4 @@ const ResetPasswordSuccess = () => {
   </Box>
  )
 }
-
-export default ResetPasswordSuccess
+export default PasswordLinkExpired

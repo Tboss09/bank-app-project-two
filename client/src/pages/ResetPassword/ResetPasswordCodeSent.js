@@ -9,8 +9,8 @@ const ResetPasswordCodeSent = () => {
   <Box minH={'100vh'} bg="brand.500" px={7} pt="10">
    <VStack align="flex-start" spacing="2" pb="7">
     <Heading color="white">Yooo</Heading>
-    <Text color="brand.100" fontSize="sm">
-     We,ve sent a password reset link has been sent to your email address,
+    <Text color="brand.100" fontSize="md">
+     A password reset link has been sent to your email address,
      Please check your mail and click the link to reset your password.
     </Text>
    </VStack>
@@ -25,7 +25,7 @@ const ResetPasswordCodeSent = () => {
     w="98%"
     mx="auto"
     onClick={e => history.push('/login')}
-    h="12"
+    h="16"
     color={'brand.500'}
     variant={'solid'}
    >

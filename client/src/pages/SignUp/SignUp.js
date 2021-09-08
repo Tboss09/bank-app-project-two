@@ -376,7 +376,7 @@ export default function SplitScreen() {
        fontSize="sm"
        size="lg"
        w="97%"
-       h="12"
+       h="16"
        variant={'solid'}
       >
        Continue

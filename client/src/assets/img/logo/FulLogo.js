@@ -9,7 +9,7 @@ const FulLogo = ({ w, h, fs, color, fill, spacing }) => {
    <Icon as={Logo} w={w} h={h} fill={fill} />
    <Text
     fontSize={fs ? fs : 'xl'}
-    color={color ? color : 'brand.700'}
+    color={color ? color : 'white'}
     fontWeight="semibold"
    >
     monsecure

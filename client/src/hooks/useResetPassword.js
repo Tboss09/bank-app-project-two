@@ -7,9 +7,10 @@ import useReactForm from './useReactForm'
 const useResetPassword = () => {
  const { register, errors, isValid, handleSubmit, getValues, clearErrors } =
   useReactForm()
- const [formError, setisError] = useState(false)
+ const [formSuccess, setFormSuccess] = useState(false)
  const [password, setShowPassword] = useState('')
  const [show2, setShow2] = useState(false)
+ const [isPasswordExpired, setIsPasswordExpired] = useState(false)
  const handleClick2 = () => setShow2(!show2)
  const { _id, secretCode } = useParams()
 
@@ -25,7 +26,9 @@ const useResetPassword = () => {
 
  useEffect(() => {
   console.log(isLoading, isError, error, data, isSuccess)
-  isError && setisError(true)
+  isSuccess && setFormSuccess(true)
+  if (isError) {
+  }
  }, [isLoading, isError, error, data, isSuccess])
 
  /* Sends a request to reset users password */
@@ -33,7 +36,6 @@ const useResetPassword = () => {
   const { password: newPassword } = password
   mutate(newPassword)
  }
- /* Sends a request to reset users password */
 
  /* Checks if password is same as confirm password */
  const isPasswordSame = password => {
@@ -59,11 +61,12 @@ const useResetPassword = () => {
      console.log(`valid code`, isUserLinkStillValid)
     }
    } catch (err) {
+    setIsPasswordExpired(true)
     console.log(err)
    }
   }
   isUserResetPasswordLinkValid()
- }, [_id, secretCode])
+ }, [_id, secretCode, setIsPasswordExpired])
 
  /* Resets users password */
 
@@ -81,7 +84,8 @@ const useResetPassword = () => {
   setShowPassword,
   isPasswordSame,
   resetPassword,
-  formError,
+  isPasswordExpired,
+  formSuccess,
  }
 }
 

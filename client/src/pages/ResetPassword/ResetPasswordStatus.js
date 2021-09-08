@@ -16,6 +16,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 import FulLogo from '../../assets/img/logo/FulLogo'
 import useResetPassword from '../../hooks/useResetPassword'
 import useValidateForm from '../../hooks/useValidateForm'
+import PasswordLinkExpired from './PasswordLinkExpired'
 import ResetPasswordSuccess from './ResetPasswordSuccess'
 
 export default function SimpleCard() {
@@ -32,7 +33,8 @@ export default function SimpleCard() {
   password,
   setShowPassword,
   resetPassword,
-  formError,
+  formSuccess,
+  isPasswordExpired,
  } = useResetPassword()
  const {
   isPasswordActive,
@@ -42,7 +44,12 @@ export default function SimpleCard() {
   handleEmailChange,
   showPassword,
  } = useValidateForm()
- if (formError) {
+ if (isPasswordExpired) {
+  return <PasswordLinkExpired />
+  console.log(isPasswordExpired, 'expired')
+ }
+ console.log(isPasswordExpired, 'expired')
+ if (formSuccess) {
   return <ResetPasswordSuccess />
  }
  return (
@@ -74,6 +81,7 @@ export default function SimpleCard() {
        className="monsecure-form"
        h="20"
        isInvalid={errors.password}
+       color={errors.confirmPassword ? '#a12000' : 'brand.600'}
       >
        <FormLabel
         color={errors.password ? '#a12000' : 'brand.600'}
@@ -107,15 +115,15 @@ export default function SimpleCard() {
          }}
         />
         <InputRightElement
-         pointerEvents="none"
          onClick={() => {
-          !errors.password && handleShowPassword()
+          handleShowPassword()
+          console.log('clicked')
          }}
          children={
           showPassword ? (
-           <AiOutlineEye color="brand.200" />
+           <AiOutlineEye h={7} w={7} />
           ) : (
-           <AiOutlineEyeInvisible color="brand.200" />
+           <AiOutlineEyeInvisible h={7} w={7} />
           )
          }
         />
@@ -155,9 +163,8 @@ export default function SimpleCard() {
 
         {/* input */}
         <InputRightElement
-         pointerEvents="none"
          onClick={() => {
-          !errors.confirmPassword && handleClick2()
+          handleClick2()
          }}
          children={
           !show2 ? (
@@ -183,7 +190,7 @@ export default function SimpleCard() {
       <Stack spacing={10}>
        <Button
         w="97%"
-        h="12"
+        h="16"
         bg="brand.500"
         type="submit"
         fontSize="sm"

@@ -105,7 +105,7 @@ export default function SplitScreen() {
        textTransform="uppercase"
        w="98%"
        mx="auto"
-       h="12"
+       h="16"
        color={'brand.500'}
        variant={'solid'}
       >

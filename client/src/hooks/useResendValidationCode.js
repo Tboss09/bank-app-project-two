@@ -43,7 +43,6 @@ const useResendValidationCode = () => {
     status: 'error',
     isClosable: true,
    })
-   console.log(error.data, error.response.data.error)
   }
  }, [isLoading, isError, error, data, isSuccess])
 
