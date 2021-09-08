@@ -187,17 +187,17 @@ export default function SplitScreen() {
        </InputGroup>
 
        {/* Error message here */}
-       <Animated
-        animationIn="fadeInDown"
-        animationOut="bounceOutUp"
-        animationInDuration={400}
-        animationOutDuration={400}
-        isVisible={errors.lastname}
-       >
-        <FormErrorMessage className="monsecure_error">
+       <FormErrorMessage className="monsecure_error">
+        <Animated
+         animationIn="fadeInDown"
+         animationOut="bounceOutUp"
+         animationInDuration={400}
+         animationOutDuration={400}
+         isVisible={true}
+        >
          {errors.lastname && errors.lastname.message}
-        </FormErrorMessage>
-       </Animated>
+        </Animated>
+       </FormErrorMessage>
       </FormControl>
      </Stack>
      {/* User Name */}
@@ -375,9 +375,8 @@ export default function SplitScreen() {
        textTransform="capitalize"
        fontSize="sm"
        size="lg"
-       w="92%"
+       w="97%"
        h="12"
-       colorScheme={'blue'}
        variant={'solid'}
       >
        Continue

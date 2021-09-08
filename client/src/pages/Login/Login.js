@@ -4,16 +4,21 @@ import {
  Center,
  Flex,
  FormControl,
+ FormErrorIcon,
  FormErrorMessage,
  FormLabel,
  Heading,
  Input,
+ InputGroup,
+ InputRightElement,
  Link,
  Stack,
  Text,
  VStack,
 } from '@chakra-ui/react'
 import React from 'react'
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+import { GoMail } from 'react-icons/go'
 import { Link as Navigator, Redirect } from 'react-router-dom'
 import FulLogo from '../../assets/img/logo/FulLogo'
 import useAuth from '../../auth/useAuth'
@@ -22,13 +27,16 @@ import useValidateForm from '../../hooks/useValidateForm'
 import useStore from '../../zustand'
 
 export default function SimpleCard() {
- const { handleSubmit, register, onSubmit, errors, isValid } = useLogin()
+ const { handleSubmit, register, onSubmit, errors, isValid, isLoading } =
+  useLogin()
  const { setData } = useStore(state => state)
  const {
   isPasswordActive,
   isEmailActive,
+  showPassword,
   handleEmailChange,
   handlePasswordChange,
+  handleShowPassword,
  } = useValidateForm()
 
  const { isSuccess, isUserInActive } = useAuth()
@@ -66,6 +74,7 @@ export default function SimpleCard() {
        <FormControl
         className="monsecure-form"
         id="email"
+        h={{ base: '16' }}
         isInvalid={errors.email}
        >
         <FormLabel
@@ -77,26 +86,38 @@ export default function SimpleCard() {
         >
          Email address
         </FormLabel>
-        <Input
-         variant="flushed"
-         type="email"
-         name="email"
-         {...register('email', {
-          required: 'A valid password is required',
-          pattern: {
-           value:
-            /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/,
-           message: 'Please Enter your email in this format youremail@xxx.com',
-          },
-          // validate: {
-          //  email: email => handleValidateEmail(email, 'email'),
-          // },
-         })}
-         onChange={e => {
-          handleEmailChange(e.target.value)
-          setData(e.target.value)
-         }}
-        />
+        <InputGroup>
+         <Input
+          variant="flushed"
+          type="email"
+          name="email"
+          {...register('email', {
+           required: 'A valid password is required',
+           pattern: {
+            value:
+             /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/,
+            message: 'A valid email is required, ie youremail@gmail.com',
+           },
+           // validate: {
+           //  email: email => handleValidateEmail(email, 'email'),
+           // },
+          })}
+          onChange={e => {
+           handleEmailChange(e.target.value)
+           setData(e.target.value)
+          }}
+         />
+         <InputRightElement
+          children={
+           errors.email ? (
+            <FormErrorIcon color="red.700" />
+           ) : (
+            <GoMail color="brand.200" />
+           )
+          }
+         />
+        </InputGroup>
+
         <FormErrorMessage
          className="monsecure_error"
          fontWeight="bold"
@@ -108,6 +129,7 @@ export default function SimpleCard() {
        <FormControl
         className="monsecure-form"
         id="password"
+        h={{ base: '16' }}
         isInvalid={errors.password}
        >
         <FormLabel
@@ -119,15 +141,30 @@ export default function SimpleCard() {
         >
          Password
         </FormLabel>
-        <Input
-         variant="flushed"
-         type="password"
-         name="password"
-         {...register('password', {
-          required: 'A valid password is required',
-         })}
-         onChange={e => handlePasswordChange(e.target.value)}
-        />
+
+        <InputGroup>
+         <Input
+          variant="flushed"
+          type={showPassword ? 'password' : 'text'}
+          name="password"
+          {...register('password', {
+           required: 'A valid password is required',
+          })}
+          onChange={e => handlePasswordChange(e.target.value)}
+         />
+         <InputRightElement
+          onClick={handleShowPassword}
+          children={
+           errors.password ? (
+            <FormErrorIcon color="red.700" />
+           ) : showPassword ? (
+            <AiOutlineEye color="brand.200" />
+           ) : (
+            <AiOutlineEyeInvisible color="brand.200" />
+           )
+          }
+         />
+        </InputGroup>
 
         <FormErrorMessage
          className="monsecure_error"
@@ -158,11 +195,14 @@ export default function SimpleCard() {
         </Stack>
 
         <Button
-         isDisabled={!isValid}
+         isLoading={isLoading}
          type="submit"
+         loadingText="Submitting"
          textTransform="capitalize"
          fontSize="sm"
-         colorScheme={'blue'}
+         w="92%"
+         mx="auto"
+         h="12"
          variant={'solid'}
         >
          Sign in

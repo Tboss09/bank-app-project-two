@@ -20,11 +20,20 @@ import Back from '../../components/Back'
 import useStore from '../../zustand'
 
 export default function SplitScreen() {
- const { register, errors, handleSubmit, RequestPasswordRequest, isValid } =
-  useResetPassword()
+ const {
+  register,
+  errors,
+  handleSubmit,
+  RequestPasswordRequest,
+  isValid,
+  isLoading,
+ } = useResetPassword()
+ /* Gets user email from login page and sets it */
  const { email } = useStore(state => state)
  const [isUserEmail, setUserEmail] = useState(email)
  console.log('email', email)
+ /* Gets user email from login page and sets it */
+
  return (
   <Stack
    minH={'100vh'}
@@ -52,6 +61,7 @@ export default function SplitScreen() {
      <FormControl
       className="monsecure-form"
       id="email"
+      h="20"
       isInvalid={errors.email}
      >
       <Input
@@ -59,6 +69,7 @@ export default function SplitScreen() {
        type="email"
        variant="flushed"
        value={isUserEmail}
+       _placeholder={{ color: 'white' }}
        placeholder="Email address"
        {...register('email', {
         required: 'Your Email Address is Required',
@@ -72,6 +83,7 @@ export default function SplitScreen() {
        color="white !important"
       />
       <FormErrorMessage
+       transition="all 0.3s ease-in"
        className="monsecure_error"
        fontWeight="normal"
        p="3"
@@ -86,6 +98,8 @@ export default function SplitScreen() {
       <Button
        type="submit"
        bg={'white'}
+       isLoading={isLoading}
+       loadingText="Sending Reset Link"
        size="lg"
        fontSize="sm"
        textTransform="uppercase"

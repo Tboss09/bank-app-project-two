@@ -40,13 +40,11 @@ const useValidateForm = () => {
  const handlePasswordChange = text =>
   text !== '' ? setIsPasswordActive(true) : setIsPasswordActive(false)
 
- /* Make label stay on top if user has inputed a value */
-
- // This will either send a success or error toast depending on user form validation
  const toast = useToast()
  const history = useHistory()
 
  //   Global State Manager
+
  const { setData } = useStore(state => state)
  const {
   register,
@@ -104,7 +102,6 @@ const useValidateForm = () => {
     })
   }
  }
- // Submit form
 
  return {
   register,
