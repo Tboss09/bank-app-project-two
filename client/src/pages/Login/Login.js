@@ -146,8 +146,8 @@ export default function SimpleCard() {
         >
          <Link
           variant="link"
-          color={'brand.700'}
-          fontWeight="normal"
+          color={'brand.800'}
+          fontWeight="semibold"
           fontSize="sm"
           as={Navigator}
           to="/reset-password"

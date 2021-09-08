@@ -12,6 +12,11 @@ const useValidateForm = () => {
  const [isUserNameActive, setIsUserNameActive] = useState(false)
  const [isEmailActive, setIsEmailActive] = useState(false)
  const [isPasswordActive, setIsPasswordActive] = useState(false)
+ const [showPassword, setShowPassword] = useState(true)
+
+ /* Toggles password visibility */
+ const handleShowPassword = () => setShowPassword(!showPassword)
+ /* Toggles password visibility */
 
  /* Make label stay on top if user has inputed a value */
 
@@ -53,7 +58,6 @@ const useValidateForm = () => {
   isSubmitting,
   formState: { errors, isValid },
  } = useForm({ mode: 'all', shouldFocusError: true })
-
 
  /* Checks if user is already registered in database, throws error if registered */
  const handleValidateEmail = useCallback(
@@ -106,21 +110,23 @@ const useValidateForm = () => {
   register,
   handleSubmit,
   onSubmit,
-  isSubmitting,
-  handleValidateEmail,
   errors,
-  isValid,
   clearErrors,
   setValue,
+  showPassword,
+  handleValidateEmail,
   handleFirstNameChange,
   handleLastNameChange,
   handleUserNameChange,
   handleEmailChange,
   handlePasswordChange,
+  handleShowPassword,
   isFirstNameActive,
+  isSubmitting,
   isLastNameActive,
   isEmailActive,
   isUserNameActive,
+  isValid,
   isPasswordActive,
  }
 }
